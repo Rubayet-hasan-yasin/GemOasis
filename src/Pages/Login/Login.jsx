@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from '../../Provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 
 
 const Login = () => {
     const [showPass, setShowPass] = useState(false);
+    const {loginWithEmailAndPassword ,googleSignIn} = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data)
+        const email = data.email;
+        const password = data.password;
+
+
+        loginWithEmailAndPassword(email, password)
+        .then(()=>{
+            toast.success('login successfull')
+            reset()
+            navigate('/')
+        })
+        .catch(err=> toast.error(err.message))
+
+
     }
 
 
     const handleGoogleLogin = ()=>{
-        alert('hello google')
+        googleSignIn()
+        .then(result=>{
+            toast.success('Login successfull')
+            navigate('/')
+        })
+        .catch(err=>{
+            toast.error(err.message)
+            setLoading(false)
+        })
     }
 
 

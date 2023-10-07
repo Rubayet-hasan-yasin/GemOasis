@@ -1,37 +1,86 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { imageUpload } from '../../api/imageUpload';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false);
     const [showConfPass, setShowConfPass] = useState(false);
     const [imgName, setImgName] = useState('Upload Image');
+    const {user, registerWithEmailAndPassword, googleSignIn} = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
 
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = (data) => {
-        const image = data.photo[0];
 
-        console.log(data.photo[0])
+        // console.log(data.email)
+
+        const image = data.photo[0];
+        const email = data.email;
+        const name = data.name;
+        const password = data.password;
+        const confirmPassword = data.ConfirmPassword;
+
+
+        if (password !== confirmPassword) {
+            toast.error('password not match');
+            return;
+        }
+
+
 
         imageUpload(image)
-        .then(result=> {
-            console.log(result)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+            .then(result => {
+                const imgURl = result.data.display_url;
+
+                registerWithEmailAndPassword(email, password)
+                    .then(result => {
+                        const user = result.user;
+                        updateProfile(user, {
+                            displayName: name, photoURL: imgURl
+                        }).then(() => {
+                            // Profile updated!
+                            toast.success("Registration Successful!")
+                            reset()
+                            navigate('/')
+
+                        }).catch((error) => {
+                            // An error occurred
+                            toast.error(error.message);
+                        });
+
+                    })
+                    .catch(err => {
+                        const error = err.message;
+                        toast.error(error);
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 
-    const handleGoogleLogin = ()=>{
-        alert('hello google')
+    const handleGoogleLogin = () => {
+        googleSignIn()
+        .then(result=>{
+            toast.success('Login successfull')
+            navigate('/')
+        })
+        .catch(err=>{
+            toast.error(err.message)
+            setLoading(false)
+        })
     }
 
 
@@ -66,7 +115,7 @@ const Register = () => {
                                 id="name"
                                 placeholder="Enter Your name"
                                 required type="name"
-                                {...register('name', {required: true})}
+                                {...register('name', { required: true })}
                                 className="w-full outline-none py-1"
                             />
                         </div>
@@ -77,7 +126,7 @@ const Register = () => {
                                 id="email"
                                 placeholder="m@example.com"
                                 required type="email"
-                                {...register('email', {required: true})}
+                                {...register('email', { required: true })}
                                 className="w-full outline-none py-1"
                             />
                         </div>
@@ -88,19 +137,19 @@ const Register = () => {
                             <div className='flex'>
                                 <input
                                     id="password"
-                                    required 
+                                    required
                                     type={showPass ? "text" : "password"}
-                                    {...register('password',{required: true})}
+                                    {...register('password', { required: true })}
                                     className="w-full outline-none py-1"
                                 />
 
                                 {/* password show / hide */}
                                 <span
-                                className='h-4 w-4'
-                                onClick={()=>setShowPass(!showPass)}
+                                    className='h-4 w-4'
+                                    onClick={() => setShowPass(!showPass)}
                                 >
                                     {
-                                        showPass ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>
+                                        showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />
                                     }
                                 </span>
                             </div>
@@ -111,19 +160,19 @@ const Register = () => {
                             <div className='flex'>
                                 <input
                                     id="ConfirmPassword"
-                                    required 
+                                    required
                                     type={showConfPass ? "text" : "password"}
-                                    {...register('ConfirmPassword',{required: true})}
+                                    {...register('ConfirmPassword', { required: true })}
                                     className="w-full outline-none py-1"
                                 />
 
                                 {/* password show / hide */}
                                 <span
-                                className='h-4 w-4'
-                                onClick={()=>setShowConfPass(!showConfPass)}
+                                    className='h-4 w-4'
+                                    onClick={() => setShowConfPass(!showConfPass)}
                                 >
                                     {
-                                        showPass ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>
+                                        showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />
                                     }
                                 </span>
                             </div>
@@ -131,17 +180,17 @@ const Register = () => {
 
                         {/* photo  */}
                         <div className="mt-4">
-                            <label className="block text-gray-700">
+                            <label className="block text-gray-700 overflow-hidden">
                                 <input
                                     {...register('photo')}
                                     type="file"
-                                    onChange={(e)=>setImgName(e.target.files[0].name)}
+                                    onChange={(e) => setImgName(e.target.files[0].name)}
                                     className="sr-only"
                                     accept="image/*" required />
                                 Profile Picture
 
                                 <div className='bg-sky-400 text-white border border-gray-300 rounded font-semibold cursor-pointer w-fit p-1 px-3 hover:bg-sky-500'>
-                                    {imgName}
+                                    <p className='max-w-full'>{imgName}</p>
                                 </div>
                             </label>
 
@@ -157,12 +206,12 @@ const Register = () => {
                     </div>
                     <button onClick={handleGoogleLogin} className="w-full py-2 bg-[#ffffff] text-gray-700 font-semibold border rounded hover:bg-slate-200" variant="outline">
                         <div className="flex items-center gap-2 justify-center">
-                            <FcGoogle className=''/>
+                            <FcGoogle className='' />
                             Login with Google
                         </div>
                     </button>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
