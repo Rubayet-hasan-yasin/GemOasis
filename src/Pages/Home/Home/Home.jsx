@@ -1,9 +1,11 @@
 import React from 'react';
+import Diamonds from '../Diamonds/Diamonds';
+
 
 const Home = () => {
     return (
         <div>
-            Home
+            <Diamonds/>
         </div>
     );
 };
