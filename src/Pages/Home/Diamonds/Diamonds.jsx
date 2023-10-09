@@ -31,35 +31,35 @@ import img11 from '../../../assets/Diamonds/Special.svg'
 const items = [
     {
         img: img1,
-        text : 'Radiant'
+        text : 'Asscher'
     },
     {
         img: img2,
-        text : 'Radiant'
+        text : 'Cushion'
     },
     {
         img: img3,
-        text : 'Radiant'
+        text : 'Emerald'
     },
     {
         img: img4,
-        text : 'Radiant'
+        text : 'Heart'
     },
     {
         img: img5,
-        text : 'Radiant'
+        text : 'Marquise'
     },
     {
         img: img6,
-        text : 'Radiant'
+        text : 'Oval'
     },
     {
         img: img7,
-        text : 'Radiant'
+        text : 'Pear'
     },
     {
         img: img8,
-        text : 'Radiant'
+        text : 'Princess'
     },
     {
         img: img9,
@@ -67,11 +67,11 @@ const items = [
     },
     {
         img: img10,
-        text : 'Radiant'
+        text : 'Round'
     },
     {
         img: img11,
-        text : 'Radiant'
+        text : 'Special'
     },
     
 ];
@@ -121,7 +121,7 @@ const Diamonds = () => {
                                 <figure className="bg-[#F2F6F6] p-4 rounded-full mx-auto w-[90px] h-[90px] grid justify-center items-center">
                                     <img src={item.img} alt="" />
                                 </figure>
-                                <p className="text-center text-lg font-semibold">Cardiology</p>
+                                <p className="text-center text-lg font-semibold">{item.text}</p>
                             </div>
                         </div >
                     </SwiperSlide>))
