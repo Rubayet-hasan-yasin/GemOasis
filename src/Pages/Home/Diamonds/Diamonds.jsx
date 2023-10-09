@@ -80,13 +80,12 @@ const items = [
 
 const Diamonds = () => {
     return (
-        <section className="container mx-auto select-none mb-20">
+        <section className="container mx-auto select-none my-20">
             {/* title  */}
-            <div className="my-20 flex justify-between">
-                {/* <Title text={'Specialities'} /> */}
+            <h4 className='text-4xl text-center mb-10 font-bold'>Certified Diamonds</h4>
 
-                
-            </div>
+
+            
             <Swiper
                 rewind={true}
                 slidesPerView={1}

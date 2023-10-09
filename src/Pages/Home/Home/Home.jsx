@@ -2,6 +2,7 @@ import React from 'react';
 import Diamonds from '../Diamonds/Diamonds';
 import Banner from '../Banner/Banner';
 import BestSelling from '../BestSelling/BestSelling';
+import Testimonials from '../Testimonials/Testimonials';
 
 
 const Home = () => {
@@ -11,6 +12,8 @@ const Home = () => {
             <Diamonds/>
 
             <BestSelling/>
+
+            <Testimonials/>
         </div>
     );
 };
