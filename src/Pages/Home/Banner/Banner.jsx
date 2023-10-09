@@ -1,4 +1,7 @@
 import React from 'react';
+import bannerImage from '../../../assets/diamond-diamond-rings-18-karat-yellow-gold.jpg'
+
+
 
 const Banner = () => {
     return (
@@ -9,7 +12,7 @@ const Banner = () => {
                 <p className='text-gray-500 font-semibold'>Elevate your style with our handcrafted jewelry pieces. Each design is meticulously crafted to perfection, offering you timeless elegance and unmatched beauty. Whether you're looking for a stunning engagement ring or a unique statement necklace, find the perfect piece to enhance your charm and sophistication.</p>
             </div>
             <div className='overflow-hidden'>
-                <img src="/src/assets/diamond-diamond-rings-18-karat-yellow-gold.jpg" alt="" className='rotate-[-50deg]' />
+                <img src={bannerImage} alt="" className='rotate-[-50deg]' />
             </div>
         </div>
     );

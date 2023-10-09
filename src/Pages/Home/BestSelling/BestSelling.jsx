@@ -1,6 +1,9 @@
 
 import React from 'react';
-import StarRatings from 'react-star-ratings';
+
+
+// image from assets 
+import img1 from '../../../assets/diamond-rings-950-platinum.png'
 
 const BestSelling = () => {
 
@@ -10,7 +13,7 @@ const BestSelling = () => {
             name: 'Elegant Diamond Ring',
             description: 'A stunning diamond ring with a brilliant-cut diamond set in 18-karat white gold.',
             price: '$2,500',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 3.5,
             reviews: 25,
         },
@@ -19,7 +22,7 @@ const BestSelling = () => {
             name: 'Sapphire Necklace',
             description: 'A vibrant sapphire necklace with a 14-karat gold chain, perfect for special occasions.',
             price: '$1,800',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 4.0,
             reviews: 18,
         },
@@ -28,7 +31,7 @@ const BestSelling = () => {
             name: 'Emerald Earrings',
             description: 'Exquisite emerald earrings featuring emerald-cut gemstones in a vintage design.',
             price: '$1,200',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 4.8,
             reviews: 30,
         },
@@ -37,7 +40,7 @@ const BestSelling = () => {
             name: 'Elegant Diamond Ring',
             description: 'A stunning diamond ring with a brilliant-cut diamond set in 18-karat white gold.',
             price: '$2,500',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 4.5,
             reviews: 25,
         },
@@ -46,7 +49,7 @@ const BestSelling = () => {
             name: 'Sapphire Necklace',
             description: 'A vibrant sapphire necklace with a 14-karat gold chain, perfect for special occasions.',
             price: '$1,800',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 4.2,
             reviews: 18,
         },
@@ -55,7 +58,7 @@ const BestSelling = () => {
             name: 'Emerald Earrings',
             description: 'Exquisite emerald earrings featuring emerald-cut gemstones in a vintage design.',
             price: '$1,200',
-            imageUrl: '/src/assets/diamond-rings-950-platinum.png',
+            imageUrl: img1,
             rating: 4.8,
             reviews: 30,
         },
